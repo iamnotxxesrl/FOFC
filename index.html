@@ -12,6 +12,7 @@
       background-color: black;
       transition: background 0.3s;
       overflow-x: hidden;
+      text-align: center;
     }
 
     /* Loading screen */
@@ -47,6 +48,7 @@
       margin: auto;
       opacity: 0;
       transition: opacity 0.8s ease-in;
+      text-align: center;
     }
 
     .container.visible {
@@ -60,7 +62,7 @@
 
     .btn {
       padding: 0.5rem 1rem;
-      margin: 0.2rem;
+      margin: 0.3rem;
       background: #333;
       color: white;
       border: 1px solid #555;
@@ -96,6 +98,14 @@
 
     .gods { color: #d0aaff; }
     .humans { color: #66ccff; }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -106,20 +116,20 @@
   <div id="consentScreen" class="container hidden">
     <h1>🍪 Cookie Consent</h1>
     <p>We use cookies to save your background preferences. Cool?</p>
-    <button class="btn" onclick="acceptCookies()">Yes, use cookies</button>
+    <div class="button-group">
+      <button class="btn" onclick="acceptCookies()">Yes, use cookies</button>
+    </div>
   </div>
 
   <div id="app" class="container hidden">
     <h1>🏰 Welcome to Kingdom of FapCraft</h1>
 
-    <div class="center">
-      <h2>🎨 Customize Background</h2>
-    </div><div class="center"> class="center">
-        <button class="btn" onclick="setBackground('#1f1f1f')">Dark</button>
-        <button class="btn" onclick="setBackground('#333366')">Midnight Blue</button>
-        <button class="btn" onclick="setBackground('#000')">Black</button>
-        <button class="btn" onclick="setBackground('')">Reset</button>
-      </div>
+    <h2>🎨 Customize Background</h2>
+    <div class="button-group">
+      <button class="btn" onclick="setBackground('#1f1f1f')">Dark</button>
+      <button class="btn" onclick="setBackground('#333366')">Midnight Blue</button>
+      <button class="btn" onclick="setBackground('#000')">Black</button>
+      <button class="btn" onclick="setBackground('')">Reset</button>
     </div>
 
     <div style="margin-top: 2rem;">
@@ -129,7 +139,7 @@
     </div>
 
     <div style="margin-top: 2rem;">
-      <div>
+      <div class="button-group">
         <button class="btn tab-btn active" onclick="showTab('news', event)">📰 News</button>
         <button class="btn tab-btn" onclick="showTab('rules', event)">📜 Rules</button>
         <button class="btn tab-btn" onclick="showTab('lore', event)">🌌 Lore</button>
@@ -192,7 +202,7 @@
           consentScreen.classList.remove('hidden');
           consentScreen.classList.add('visible');
         }
-      }, 1200); // slight delay for smoother load
+      }, 1200);
     });
 
     function acceptCookies() {
