@@ -2,17 +2,24 @@
 <html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Kingdom of FapCraft - Magic, gods, chaos, and memes." />
     <title>Kingdom of FapCraft</title>
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <!-- TailwindCSS or other custom CSS -->
-    <link rel="stylesheet" href="/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A Minecraft server of gods, magic, and memes." />
+    <link rel="icon" href="favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Add TailwindCSS CDN if needed -->
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white transition-all">
+  <body class="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white transition-all">
     <div id="root"></div>
 
-    <!-- Vite injects script automatically -->
-    <script type="module" src="/index.jsx"></script>
+    <!-- React + ReactDOM from CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel to transpile JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Your React code -->
+    <script type="text/babel" src="index.jsx"></script>
   </body>
 </html>
