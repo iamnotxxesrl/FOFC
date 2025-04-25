@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kingdom of FapCraft</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0b0c10;
+      color: white;
+      overflow-x: hidden;
+      background-image: radial-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin: 1rem;
+      color: #7fdbff;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .tab-button {
+      padding: 0.5rem 1rem;
+      border: 2px solid #7fdbff;
+      border-radius: 5px;
+      background: transparent;
+      color: #7fdbff;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .tab-button:hover {
+      animation: sparkleFade 1s forwards;
+    }
+    @keyframes sparkleFade {
+      0% {
+        box-shadow: 0 0 5px #7fdbff, 0 0 10px #7fdbff;
+        background-color: rgba(127, 219, 255, 0.1);
+      }
+      100% {
+        box-shadow: none;
+        background-color: transparent;
+      }
+    }
+    .tab-content {
+      display: none;
+      text-align: center;
+      margin: 2rem auto;
+      max-width: 800px;
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .status {
+      text-align: center;
+      margin: 2rem auto;
+    }
+    .players-list img {
+      vertical-align: middle;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🏰 Welcome to Kingdom of FapCraft</h1>
+  <div class="status" id="serverStatus">Loading server status...</div>
+  <div class="tabs">
+    <button class="tab-button" onclick="showTab('news')">📰 News</button>
+    <button class="tab-button" onclick="showTab('rules')">📜 Rules</button>
+    <button class="tab-button" onclick="showTab('lore')">🌌 Lore</button>
+  </div>
+  <div id="news" class="tab-content">
+    <h2>Latest Updates</h2>
+    <ul>
+      <li>🔥 New PvP Arena added!</li>
+      <li>🎉 Server maintenance completed successfully.</li>
+      <li>🛡️ FapKing crowned after epic 1v1 duel.</li>
+    </ul>
+  </div>
+  <div id="rules" class="tab-content">
+    <h2>Server Rules</h2>
+    <ul>
+      <li>No griefing, unless it’s consensual 😏</li>
+      <li>Keep it spicy but don’t break the vibe.</li>
+      <li>Respect the mods — they hold the ban hammer.</li>
+    </ul>
+  </div>
+  <div id="lore" class="tab-content">
+    <h2>The Divine Pantheon of FapCraft</h2>
+    <p>[Lore will go here later]</p>
+  </div>
+  <script>
+    const tabs = document.querySelectorAll('.tab-content');
+    function showTab(id) {
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+
+    fetch('https://api.mcstatus.io/v2/status/java/kingdomoffap.falixsrv.me')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('serverStatus');
+        if (data.online) {
+          let playersHtml = '';
+          if (data.players.list && data.players.list.length > 0) {
+            playersHtml += '<div class="players-list"><strong>Players Online:</strong><br>';
+            playersHtml += data.players.list.map(player => \`
+              <img src="https://minotar.net/avatar/\${player.name}/32" alt="\${player.name}" /> \${player.name}
+            \`).join('<br>');
+            playersHtml += '</div>';
+          } else {
+            playersHtml = '<div>No players online right now.</div>';
+          }
+          container.innerHTML = \`
+            <div><strong>Status:</strong> <span style="color: lightgreen;">Online</span></div>
+            <div><strong>Players:</strong> \${data.players.online} / \${data.players.max}</div>
+            \${playersHtml}
+          \`;
+        } else {
+          container.innerHTML = '<div><strong>Status:</strong> <span style="color: red;">Offline</span></div>';
+        }
+      });
+  </script>
+</body>
+</html>
