@@ -1,34 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kingdom of FapCraft</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       color: white;
-      background-color: black;
-      transition: background 0.3s;
+      background: linear-gradient(-45deg, #1f0033, #330066, #1a0033, #330033);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
       overflow-x: hidden;
       text-align: center;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, #2a004f 0%, #000000 80%);
-      background-size: 200% 200%;
-      animation: bgMagic 10s ease-in-out infinite;
-      z-index: -1;
-    }
-
-    @keyframes bgMagic {
+    @keyframes gradientBG {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
@@ -54,7 +42,7 @@
 
     @keyframes glow {
       from { text-shadow: 0 0 5px #7f5cff; }
-      to   { text-shadow: 0 0 20px #bbaaff; }
+      to { text-shadow: 0 0 20px #bbaaff; }
     }
 
     .hidden { display: none; }
@@ -62,7 +50,7 @@
 
     .container {
       padding: 2rem;
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
       opacity: 0;
       transition: opacity 0.8s ease-in;
@@ -72,19 +60,16 @@
       opacity: 1;
     }
 
-    h1, h2, h3, p, li, summary {
-      text-shadow: 0 0 10px #888;
-    }
-
     .btn {
       padding: 0.5rem 1rem;
-      margin: 0.3rem;
+      margin: 0.2rem;
       background: #333;
       color: white;
       border: 1px solid #555;
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s, box-shadow 0.3s;
+      display: inline-block;
     }
 
     .btn:hover {
@@ -99,21 +84,26 @@
 
     .tab-content {
       display: none;
+      margin-top: 1rem;
     }
 
     .tab-content.active {
       display: block;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
       margin-top: 1rem;
     }
 
     .gods { color: #d0aaff; }
     .humans { color: #66ccff; }
 
-    .center-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+    #serverStatus {
       margin-top: 1rem;
+      font-size: 1.2rem;
+      text-shadow: 0 0 8px #7f5cff;
     }
   </style>
 </head>
@@ -132,29 +122,27 @@
     <h1>🏰 Welcome to Kingdom of FapCraft</h1>
 
     <h2>🎨 Customize Background</h2>
-    <div class="center-buttons">
+    <div>
       <button class="btn" onclick="setBackground('#1f1f1f')">Dark</button>
       <button class="btn" onclick="setBackground('#333366')">Midnight Blue</button>
       <button class="btn" onclick="setBackground('#000')">Black</button>
       <button class="btn" onclick="setBackground('')">Reset</button>
     </div>
 
-    <div style="margin-top: 2rem;">
+    <div>
       <h2>🔥 Server Status</h2>
       <p id="serverStatus">Loading...</p>
       <small>IP: kingdomoffap.falixsrv.me</small>
     </div>
 
     <div style="margin-top: 2rem;">
-      <div>
-        <button class="btn tab-btn active" onclick="showTab('news', event)">📰 News</button>
-        <button class="btn tab-btn" onclick="showTab('rules', event)">📜 Rules</button>
-        <button class="btn tab-btn" onclick="showTab('lore', event)">🌌 Lore</button>
-      </div>
+      <button class="btn tab-btn active" onclick="showTab('news', event)">📰 News</button>
+      <button class="btn tab-btn" onclick="showTab('rules', event)">📜 Rules</button>
+      <button class="btn tab-btn" onclick="showTab('lore', event)">🌌 Lore</button>
 
       <div id="news" class="tab-content active">
         <h2>📰 Latest Updates</h2>
-        <ul>
+        <ul style="list-style: none; padding: 0;">
           <li>🔥 New PvP Arena added!</li>
           <li>🎉 Server maintenance completed successfully.</li>
           <li>🛡️ FapKing crowned after epic 1v1 duel.</li>
@@ -163,16 +151,15 @@
 
       <div id="rules" class="tab-content">
         <h2>📜 Server Rules</h2>
-        <ol>
-          <li>No griefing, unless it’s consensual 😏</li>
-          <li>Keep it spicy but don’t break the vibe.</li>
-          <li>Respect the mods — they hold the ban hammer.</li>
-        </ol>
+        <ul style="list-style: none; padding: 0;">
+          <li>1. No griefing, unless it’s consensual 😏</li>
+          <li>2. Keep it spicy but don’t break the vibe.</li>
+          <li>3. Respect the mods — they hold the ban hammer.</li>
+        </ul>
       </div>
 
       <div id="lore" class="tab-content">
         <h2>🌠 The Divine Pantheon of FapCraft</h2>
-
         <h3 class="gods">🌌 Gods</h3>
         <details><summary>🔥 Andy – The One True God</summary><p>The supreme deity. Magic incarnate. The world is his spellbook.</p></details>
         <details><summary>🌀 Kutsu – The Weaver</summary><p>God of Lore and Chaos. Malevolent prankster and arcane protector.</p></details>
@@ -182,7 +169,7 @@
         <h3 class="humans">🧍 Notable Humans</h3>
         <details><summary>👑 Ghepard – The Harem King</summary><p>Boss of charm and chaos. Wields seduction like a blade.</p></details>
         <details><summary>🧱 RandomRook – The Architect</summary><p>Builder of temples, then vanisher into legend.</p></details>
-        <details><summary>🤷 Homeless Karl – The Wandering One</summary><p id="karlDesc">He’s just Karl. Unpredictable and strange.</p></details>
+        <details><summary>🤷 Homeless Karl – The Wandering One</summary><p>Owner of the biggest company in the Kingdom of FapCraft! Profits like a dragon hoards gold.</p></details>
         <details><summary>🧠 MegaGauffre – The Thinker</summary><p>Smarter than gods. Outranks all in wisdom.</p></details>
         <details><summary>🐒 Uranos125 – The Savage Simian</summary><p>A chaotic monkey. Wild, powerful, barely tameable.</p></details>
         <details><summary>🕵️ Agent – The Short One</summary><p>Sneaky and strange. Known for... tiny shortcomings 😳</p></details>
@@ -223,7 +210,7 @@
       if (localStorage.getItem('cookieConsent') === 'yes') {
         localStorage.setItem('customBackground', color);
       }
-      document.body.style.backgroundColor = color || 'black';
+      document.body.style.backgroundColor = color || '';
     }
 
     const savedBg = localStorage.getItem('customBackground');
@@ -248,13 +235,13 @@
         document.getElementById('serverStatus').innerText = '⚠️ Error loading status';
       });
 
-    // Karl Easter Egg
+    // Karl secret feature
     let lastWPress = 0;
     document.addEventListener('keydown', (e) => {
-      const now = Date.now();
       if (e.key.toLowerCase() === 'w') {
-        if (now - lastWPress < 400 && document.getElementById('lore').classList.contains('active')) {
-          document.getElementById('karlDesc').innerText = "🏢 Owner of the most profitable company in the realm. Karl Enterprises rules all.";
+        const now = Date.now();
+        if (now - lastWPress < 500 && document.getElementById('lore').classList.contains('active')) {
+          alert('🏢 Homeless Karl actually runs the richest company in FapCraft! 💰🚀');
         }
         lastWPress = now;
       }
