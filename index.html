@@ -1,245 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kingdom of FapCraft</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kingdom of FapCraft</title>
+<style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
-      background-color: black;
-      transition: background 0.3s;
-      overflow-x: hidden;
-      text-align: center;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(270deg, #1e1e2f, #2e2e4f, #1e1e2f);
+        background-size: 600% 600%;
+        animation: backgroundMove 30s ease infinite;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        text-align: center;
     }
 
-    /* Loading screen */
-    #loadingScreen {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(#111 30%, #000);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 9999;
-      transition: opacity 1s ease;
+    @keyframes backgroundMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
 
-    .rune {
-      font-size: 3rem;
-      color: #7f5cff;
-      animation: glow 1.5s ease-in-out infinite alternate;
+    .tabs {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+        gap: 1rem;
     }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #7f5cff; }
-      to   { text-shadow: 0 0 20px #bbaaff; }
+    .tab {
+        background: #333;
+        border: 2px solid #555;
+        border-radius: 10px;
+        padding: 0.5rem 1.5rem;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 0 5px #aaa;
     }
 
-    .hidden { display: none; }
-    .fade-out { opacity: 0; pointer-events: none; }
-
-    .container {
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
-      opacity: 0;
-      transition: opacity 0.8s ease-in;
-      text-align: center;
+    .tab.active {
+        background: #7f5cff;
+        color: white;
+        box-shadow: 0 0 15px #7f5cff, 0 0 30px #7f5cff;
     }
 
-    .container.visible {
-      opacity: 1;
+    .tab:hover {
+        background: #5e4acc;
     }
 
-    h1, h2 {
-      text-align: center;
-      text-shadow: 0 0 10px #888;
+    .content {
+        margin-top: 2rem;
     }
 
-    .btn {
-      padding: 0.5rem 1rem;
-      margin: 0.3rem;
-      background: #333;
-      color: white;
-      border: 1px solid #555;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s, box-shadow 0.3s;
+    ul {
+        list-style: none;
+        padding: 0;
     }
 
-    .btn:hover {
-      background: #555;
-      box-shadow: 0 0 8px #7f5cff;
+    li {
+        margin: 1rem 0;
     }
 
-    .tab-btn.active {
-      background: #7f5cff;
-      box-shadow: 0 0 10px #bbaaff;
+    h2 {
+        font-size: 2rem;
+        text-shadow: 0 0 10px #fff, 0 0 20px #7f5cff;
+        margin-bottom: 1rem;
     }
 
-    .tab-content {
-      display: none;
+    @keyframes fadeOut {
+        0% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
     }
-
-    .tab-content.active {
-      display: block;
-      margin-top: 1rem;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-
-    .gods { color: #d0aaff; }
-    .humans { color: #66ccff; }
-
-    .button-group {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div id="loadingScreen">
-    <div class="rune">✦ Loading.. ✦</div>
-  </div>
 
-  <div id="consentScreen" class="container hidden">
-    <h1>🍪 Cookie Consent</h1>
-    <p>We use cookies to save your background preferences. Cool?</p>
-    <div class="button-group">
-      <button class="btn" onclick="acceptCookies()">Yes, use cookies</button>
-    </div>
-  </div>
+<div class="tabs">
+    <div class="tab active" id="news-tab">📰 News</div>
+    <div class="tab" id="rules-tab">📜 Rules</div>
+    <div class="tab" id="lore-tab">🖋️ Lore</div>
+</div>
 
-  <div id="app" class="container hidden">
-    <h1>🏰 Welcome to Kingdom of FapCraft</h1>
+<div class="content" id="content">
+    <h2>📰 Latest Updates</h2>
+    <ul>
+        <li>🔥 New PvP Arena added!</li>
+        <li>🎉 Server maintenance completed successfully.</li>
+        <li>🛡️ FapKing crowned after epic 1v1 duel.</li>
+    </ul>
+</div>
 
-    <h2>🎨 Customize Background</h2>
-    <div class="button-group">
-      <button class="btn" onclick="setBackground('#1f1f1f')">Dark</button>
-      <button class="btn" onclick="setBackground('#333366')">Midnight Blue</button>
-      <button class="btn" onclick="setBackground('#000')">Black</button>
-      <button class="btn" onclick="setBackground('')">Reset</button>
-    </div>
+<audio id="magicSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_584d190f1e.mp3"></audio>
 
-    <div style="margin-top: 2rem;">
-      <h2>🔥 Server Status</h2>
-      <p id="serverStatus">Loading...</p>
-      <small>IP: kingdomoffap.falixsrv.me</small>
-    </div>
+<script>
+const newsTab = document.getElementById('news-tab');
+const rulesTab = document.getElementById('rules-tab');
+const loreTab = document.getElementById('lore-tab');
+const content = document.getElementById('content');
+const magicSound = document.getElementById('magicSound');
 
-    <div style="margin-top: 2rem;">
-      <div class="button-group">
-        <button class="btn tab-btn active" onclick="showTab('news', event)">📰 News</button>
-        <button class="btn tab-btn" onclick="showTab('rules', event)">📜 Rules</button>
-        <button class="btn tab-btn" onclick="showTab('lore', event)">🌌 Lore</button>
-      </div>
+function setActive(tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+}
 
-      <div id="news" class="tab-content active">
+newsTab.onclick = () => {
+    setActive(newsTab);
+    content.innerHTML = `
         <h2>📰 Latest Updates</h2>
         <ul>
-          <li>🔥 New PvP Arena added!</li>
-          <li>🎉 Server maintenance completed successfully.</li>
-          <li>🛡️ FapKing crowned after epic 1v1 duel.</li>
+            <li>🔥 New PvP Arena added!</li>
+            <li>🎉 Server maintenance completed successfully.</li>
+            <li>🛡️ FapKing crowned after epic 1v1 duel.</li>
         </ul>
-      </div>
+    `;
+};
 
-      <div id="rules" class="tab-content">
+rulesTab.onclick = () => {
+    setActive(rulesTab);
+    content.innerHTML = `
         <h2>📜 Server Rules</h2>
-        <ol>
-          <li>No griefing, unless it’s consensual 😏</li>
-          <li>Keep it spicy but don’t break the vibe.</li>
-          <li>Respect the mods — they hold the ban hammer.</li>
-        </ol>
-      </div>
+        <ul>
+            <li>😈 No griefing, unless it’s consensual.</li>
+            <li>🌶️ Keep it spicy but don’t break the vibe.</li>
+            <li>🔨 Respect the mods — they hold the ban hammer.</li>
+        </ul>
+    `;
+};
 
-      <div id="lore" class="tab-content">
-        <h2>🌠 The Divine Pantheon of FapCraft</h2>
+loreTab.onclick = () => {
+    setActive(loreTab);
+    content.innerHTML = `
+        <h2>🖋️ Kingdom Lore</h2>
+        <ul>
+            <li>👑 FapKing founded the realm in pursuit of ultimate pleasure and glory.</li>
+            <li>🏰 The Great Castle was built with enchanted bricks.</li>
+            <li>🐲 Dark forces loom at the edges of the mystical lands.</li>
+        </ul>
+    `;
+};
 
-        <h3 class="gods">🌌 Gods</h3>
-        <details><summary>🔥 Andy – The One True God</summary><p>The supreme deity. Magic incarnate. The world is his spellbook.</p></details>
-        <details><summary>🌀 Kutsu – The Weaver</summary><p>God of Lore and Chaos. Malevolent prankster and arcane protector.</p></details>
-        <details><summary>🌙 Aurora – The Moonlight Guardian</summary><p>Goddess of Building and Magic. Stars bend to her will.</p></details>
-        <details><summary>🕳️ Umber – The Abyssal Hand</summary><p>She's Umber. Don’t ask. Don’t follow.</p></details>
+// Homeless Karl Easter Egg
+let lastWPress = 0;
 
-        <h3 class="humans">🧍 Notable Humans</h3>
-        <details><summary>👑 Ghepard – The Harem King</summary><p>Boss of charm and chaos. Wields seduction like a blade.</p></details>
-        <details><summary>🧱 RandomRook – The Architect</summary><p>Builder of temples, then vanisher into legend.</p></details>
-        <details><summary>🤷 Homeless Karl – The Wandering One</summary><p>He’s just Karl. Unpredictable and strange.</p></details>
-        <details><summary>🧠 MegaGauffre – The Thinker</summary><p>Smarter than gods. Outranks all in wisdom.</p></details>
-        <details><summary>🐒 Uranos125 – The Savage Simian</summary><p>A chaotic monkey. Wild, powerful, barely tameable.</p></details>
-        <details><summary>🕵️ Agent – The Short One</summary><p>Sneaky and strange. Known for... tiny shortcomings 😳</p></details>
-        <details><summary>🌊 Nyr – The Waterborne Siren</summary><p>Calm until provoked. The tide listens to her.</p></details>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const consent = localStorage.getItem('cookieConsent');
-    const app = document.getElementById('app');
-    const consentScreen = document.getElementById('consentScreen');
-    const loadingScreen = document.getElementById('loadingScreen');
-
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        loadingScreen.classList.add('fade-out');
-        setTimeout(() => loadingScreen.remove(), 1000);
-
-        if (consent === 'yes') {
-          app.classList.remove('hidden');
-          app.classList.add('visible');
-        } else {
-          consentScreen.classList.remove('hidden');
-          consentScreen.classList.add('visible');
-        }
-      }, 1200);
-    });
-
-    function acceptCookies() {
-      localStorage.setItem('cookieConsent', 'yes');
-      consentScreen.classList.add('hidden');
-      app.classList.remove('hidden');
-      app.classList.add('visible');
+document.addEventListener('keydown', (e) => {
+  if (e.key.toLowerCase() === 'w') {
+    const now = Date.now();
+    if (now - lastWPress < 400) { // Double tap W
+      triggerKarlEasterEgg();
     }
+    lastWPress = now;
+  }
+});
 
-    function setBackground(color) {
-      if (localStorage.getItem('cookieConsent') === 'yes') {
-        localStorage.setItem('customBackground', color);
-      }
-      document.body.style.backgroundColor = color || 'black';
-    }
+function triggerKarlEasterEgg() {
+  if (!loreTab.classList.contains('active')) return;
 
-    const savedBg = localStorage.getItem('customBackground');
-    if (savedBg) setBackground(savedBg);
+  if (!document.getElementById('karlEasterEgg')) {
+    const msg = document.createElement('div');
+    msg.id = 'karlEasterEgg';
+    msg.innerText = '🏢 Homeless Karl in CEO of the most powerful company in the Kingdom! still homeless tho 😭 💰';
+    msg.style.position = 'fixed';
+    msg.style.top = '20%';
+    msg.style.left = '50%';
+    msg.style.transform = 'translateX(-50%)';
+    msg.style.padding = '1rem 2rem';
+    msg.style.background = 'rgba(50, 50, 150, 0.8)';
+    msg.style.border = '2px solid #bbaaff';
+    msg.style.borderRadius = '12px';
+    msg.style.color = '#fff';
+    msg.style.fontSize = '1.5rem';
+    msg.style.boxShadow = '0 0 15px #7f5cff, 0 0 30px #bbaaff';
+    msg.style.zIndex = '9999';
+    msg.style.animation = 'fadeOut 4s ease forwards';
+    document.body.appendChild(msg);
+    magicSound.play();
+    setTimeout(() => {
+      msg.remove();
+    }, 4000);
+  }
+}
+</script>
 
-    function showTab(id, event) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      if (event) event.target.classList.add('active');
-    }
-
-    fetch('https://api.mcstatus.io/v2/status/java/kingdomoffap.falixsrv.me')
-      .then(res => res.json())
-      .then(data => {
-        const status = data.online ?
-          `✅ Online — ${data.players.online} / ${data.players.max} players` :
-          `❌ Offline`;
-        document.getElementById('serverStatus').innerText = status;
-      })
-      .catch(() => {
-        document.getElementById('serverStatus').innerText = '⚠️ Error loading status';
-      });
-  </script>
 </body>
 </html>
